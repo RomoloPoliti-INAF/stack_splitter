@@ -1,29 +1,30 @@
 [project]
+authors = [{name = "Romolo Politi", email = "romolo.politi@inaf.it"}]
+description = "Command Stack splitter"
 name = "StackSplitter"
 version = "0.1.0"
-authors = [{name = "Romolo Politi", email = "romolo.politi@inaf.it"}]
-description="Command Stack splitter"
 
-requires-python = ">=3.6"
-license = {text = "GNU GPL ver3"} 
-readme = "README.md"
 dependencies = [
-    "rich-click",'setuptools',
-    'importlib-metadata; python_version>"3.6"',
+  "rich-click",
+  'setuptools',
+  'importlib-metadata; python_version>"3.6"',
 ]
+license = {text = "GNU GPL ver3"}
+readme = "README.md"
+requires-python = ">=3.6"
 
 [project.urls]
-Repository = "https://github.com/RomoloPoliti-INAF/stack_splitter"
 Changelog = "https://github.com/RomoloPoliti-INAF/stack_splitter/CHANGELOG.md"
+Repository = "https://github.com/RomoloPoliti-INAF/stack_splitter"
 
 [project.optional-dependencies]
 dev = [
-    "pytest"
+  "pytest",
 ]
 
 [project.scripts]
 stack_splitter = "StackSplitter.__main__:action"
 
 [build-system]
-requires = ["setuptools", "setuptools-scm"]
 build-backend = "setuptools.build_meta"
+requires = ["setuptools", "setuptools-scm"]

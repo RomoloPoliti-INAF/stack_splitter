@@ -4,3 +4,6 @@
 /.vscode
 .env
 *.pyc
+/build
+/src/StackSplitter.egg-info
+/dist
