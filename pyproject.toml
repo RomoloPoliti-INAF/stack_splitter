@@ -1,13 +1,15 @@
 [project]
 name = "StackSplitter"
+version = "0.1.0"
 authors = [{name = "Romolo Politi", email = "romolo.politi@inaf.it"}]
 description="Command Stack splitter"
-version = "0.1.0"
+
 requires-python = ">=3.6"
 license = {text = "GNU GPL ver3"} 
 readme = "README.md"
 dependencies = [
-    "rich-click"
+    "rich-click",'setuptools',
+    'importlib-metadata; python_version>"3.6"',
 ]
 
 [project.urls]
