@@ -1,0 +1,22 @@
+[project]
+name = "stack_splitter"
+authors = [{name = "Romolo Politi", email = "romolo.politi@inaf.it"}]
+version = "0.1.0"
+requires-python = ">=3.11"
+license = {text = "GNU GPL ver3"} 
+readme = "README.md"
+dependencies = [
+    "rich-click"
+]
+
+[project.urls]
+Repository = "https://github.com/RomoloPoliti-INAF/stack_splitter"
+Changelog = "https://github.com/RomoloPoliti-INAF/stack_splitter/CHANGELOG.md"
+
+[project.optional-dependencies]
+dev = [
+    "pytest"
+]
+
+[project.scripts]
+stack_splitter = "StackSplitter.__main__:action"

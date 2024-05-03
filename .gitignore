@@ -1,2 +1,6 @@
 /output
 /stack_splitter.code-workspace
+/venv
+/.vscode
+.env
+*.pyc
