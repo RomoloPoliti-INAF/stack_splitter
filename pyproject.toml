@@ -2,7 +2,7 @@
 name = "stack_splitter"
 authors = [{name = "Romolo Politi", email = "romolo.politi@inaf.it"}]
 version = "0.1.0"
-requires-python = ">=3.11"
+requires-python = ">=3.5"
 license = {text = "GNU GPL ver3"} 
 readme = "README.md"
 dependencies = [
