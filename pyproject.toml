@@ -21,3 +21,7 @@ dev = [
 
 [project.scripts]
 stack_splitter = "StackSplitter.__main__:action"
+
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
