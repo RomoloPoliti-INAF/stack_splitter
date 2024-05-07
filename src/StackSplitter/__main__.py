@@ -2,14 +2,15 @@
 # -*- coding: utf-8 -*-
 
 import xml.etree.ElementTree as ET
-import rich_click as click
-from rich.console import Console
-from rich.progress import Progress, BarColumn, SpinnerColumn, TimeElapsedColumn
 from pathlib import Path
 
-__version__ = '0.1.0'
+import rich_click as click
+from rich.console import Console
+from rich.progress import BarColumn, Progress, SpinnerColumn, TimeElapsedColumn
+
+__version__ = '0.1.1'
 ET._namespace_map['http://edds.egos.esa/model'] = 'ns2'
-top = ET.Element("{http://edds.egos.esa/model}ResponsePart")
+# top = ET.Element("{http://edds.egos.esa/model}ResponsePart")
 console = Console()
 
 # Progress bar settings
@@ -44,19 +45,6 @@ class MSG:
     WARNING = "[yellow][WARNING][/yellow] "
 
 
-class Stack:
-    def __init__(self):
-        self.outRoot = ET.ElementTree(top)
-        self.child1 = ET.SubElement(top, 'Response')
-        self.child2 = ET.SubElement(self.child1, 'PktTcReportResponse')
-
-    def add(self, packet):
-        self.child2.append(packet)
-
-    def write(self, output):
-        self.outRoot.write(output, encoding='utf-8', xml_declaration=True)
-
-
 def search(packet, label):
     for child in packet:
         if child.tag == label:
@@ -65,8 +53,7 @@ def search(packet, label):
 
 def stack_splitter(fileName: Path, output: Path = None, summary: bool = False, show_progress: bool = True, debug: bool = False, verbose: int = 0) -> None | dict[str, int]:
     if verbose > 0:
-        console.print(f"{MSG.INFO}Processing file {
-                      fileName}", style="bold blue")
+        console.print(f"{MSG.INFO}Processing file {fileName}", style="bold blue")
     myDoc = ET.parse(fileName)
     root = myDoc.getroot()
 
@@ -79,23 +66,29 @@ def stack_splitter(fileName: Path, output: Path = None, summary: bool = False, s
                 if summary:
                     stacks[dt] += 1
                 else:
-                    stacks[dt].add(packet)
+                    stacks[dt].append(packet)
             else:
                 if debug:
-                    console.print(f"{MSG.DEBUG}Creating stack for {
-                                  dt}", style="bold blue")
+                    console.print(f"{MSG.DEBUG}Creating stack for {dt}", style="bold blue")
                 if summary:
                     stacks[dt] = 1
                 else:
-                    stacks[dt] = Stack()
-                    stacks[dt].add(packet)
+                    stacks[dt] = [packet]
             progress.update(stack, advance=1)
     if summary:
         return stacks
     else:
-        for key in stacks.keys():
-            stacks[key].write(
+        for key, value in stacks.items():
+            top = ET.Element("{http://edds.egos.esa/model}ResponsePart")
+            outRoot = ET.ElementTree(top)
+            child1 = ET.SubElement(top, 'Response')
+            child2 = ET.SubElement(child1, 'PktTcReportResponse')
+            for item in value:
+                child2.append(item)
+            outRoot.write(
                 f"{output if not output is None else ''}/{fileName.stem}_{key}.xml")
+            del outRoot, child1, child2
+            # exit()
         return None
 
 
@@ -114,11 +107,8 @@ def action(filename: Path, output: Path, summary: bool, show_progress: bool, deb
     ret = stack_splitter(filename, output, summary,
                          show_progress, debug, verbose)
     if summary:
-        print(ret)
+       console.print(ret)
 
 
 if __name__ == "__main__":
-    fileName = "input/00_-_ICO11_-_All_Tests_-_TC.xml"
-    # stack_splitter(fileName)
-    # print("Done")
     action()

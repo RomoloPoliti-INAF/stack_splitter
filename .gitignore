@@ -7,3 +7,6 @@
 /build
 /src/StackSplitter.egg-info
 /dist
+/input
+*.ipynb
+/.ipynb_checkpoints

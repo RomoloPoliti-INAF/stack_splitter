@@ -2,16 +2,16 @@
 authors = [{name = "Romolo Politi", email = "romolo.politi@inaf.it"}]
 description = "Command Stack splitter"
 name = "StackSplitter"
-version = "0.1.0"
+version = "0.1.1"
 
 dependencies = [
   "rich-click",
   'setuptools',
-  'importlib-metadata; python_version>"3.6"',
+  'importlib-metadata; python_version>"3.10"',
 ]
 license = {text = "GNU GPL ver3"}
 readme = "README.md"
-url="https://github.com/RomoloPoliti-INAF/stack_splitter"
+
 
 [project.urls]
 Changelog = "https://github.com/RomoloPoliti-INAF/stack_splitter/CHANGELOG.md"

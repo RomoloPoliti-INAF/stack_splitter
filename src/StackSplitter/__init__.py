@@ -1,0 +1,1 @@
+from StackSplitter.__main__ import stack_splitter
